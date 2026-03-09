@@ -13,7 +13,9 @@ import { jotaiStore } from '~/lib/store'
 
 export type { AggregateRoot }
 
-export const aggregationDataAtom = atom<null | AggregateRoot>(null)
+export const aggregationDataAtom = atom<
+  null | (AggregateRoot & { theme?: AppThemeConfig })
+>(null)
 const appConfigAtom = atom<AppConfig | null>(null)
 
 export const AggregationProvider: FC<
@@ -64,7 +66,7 @@ export const AggregationProvider: FC<
 }
 
 export const useAggregationSelector = <T,>(
-  selector: (atomValue: AggregateRoot) => T,
+  selector: (atomValue: AggregateRoot & { theme?: AppThemeConfig }) => T,
   deps: any[] = [],
 ): T | null =>
   useAtomValue(
